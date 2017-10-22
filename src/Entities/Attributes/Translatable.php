@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Zenify\DoctrineBehaviors\Entities\Attributes;
 
+use Doctrine\Common\Util\Inflector;
 
 /**
  * @method Translatable proxyCurrentLocaleTranslation($method, $args = [])
@@ -27,7 +28,7 @@ trait Translatable
 			$prefix = '';
 		}
 
-		$methodName = $prefix . ucfirst($name);
+		$methodName = $prefix . Inflector::classify($name);
 
 		if (property_exists($this, $name) === FALSE && method_exists($this, $methodName) === FALSE) {
 			$value = $this->proxyCurrentLocaleTranslation($methodName);
